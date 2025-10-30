@@ -1,0 +1,266 @@
+# Source: Magic: The Gathering | Avatar: The Last Airbender Product Details
+# The Play Booster contains 14 cards, plus a non-foil DFC helper card or token.
+# Set Code is TLA.
+
+# Using TLA for the main set cards. TLE cards are included in the TLA printings
+
+pack:
+  # Land Slot - 1 Card (Variable)
+  land_slot:
+  - use: non_foil_dual_land
+    chance: 40
+  - use: non_foil_default_land
+    chance: 20
+  - use: non_foil_avatars_journey_land
+    chance: 10
+  - use: non_foil_appa_land
+    chance: 10
+  - use: foil_dual_land
+    chance: 10
+  - use: foil_default_land
+    chance: 5
+  - use: foil_avatars_journey_land
+    chance: 2.5 # Note: Using decimal chance as provided
+  - use: foil_appa_land
+    chance: 2.5 # Note: Using decimal chance as provided
+
+  # Common Slots - 6-7 Cards (Variable - contains Source Material possibility)
+  common_or_source_material:
+  - use: common
+    count: 7
+    chance: 25 # (1 less chance for common than the 26 provided to simplify ratio)
+  - use: common
+    count: 6
+    use: non_foil_source_material
+    count: 1
+    chance: 1 # 1 in 26 packs gets the source material card, so 25:1 common:source_material ratio
+
+  # Uncommon Slots - 3 Cards (Static with internal card variations)
+  uncommon_slot: 3
+
+  # Wildcard Slot - 1 Card (Variable)
+  wildcard_slot:
+  - use: common
+    count: 1
+    chance: 42 # 4.2% -> 42
+  - use: uncommon_slot_content
+    count: 1
+    chance: 741 # 74.1% -> 741
+  - use: rare_main_set
+    count: 1
+    chance: 167 # 16.7% -> 167
+  - use: mythic_main_set
+    count: 1
+    chance: 26 # 2.6% -> 26
+  - use: uncommon_scene
+    count: 1
+    chance: 1 # <1%
+  - use: rare_mythic_scene
+    count: 1
+    chance: 1 # <1%
+  - use: rare_mythic_field_notes
+    count: 1
+    chance: 1 # <1%
+  - use: rare_mythic_battle_pose
+    count: 1
+    chance: 1 # <1%
+  - use: rare_mythic_elemental_frame
+    count: 1
+    chance: 1 # <1%
+  - use: mythic_saga
+    count: 1
+    chance: 1 # <1%
+
+  # Rare or Mythic Rare Slot - 1 Card (Variable)
+  rare_mythic_slot:
+  - use: rare_main_set
+    chance: 800 # 80% -> 800
+  - use: mythic_main_set
+    chance: 126 # 12.6% -> 126
+  - use: rare_scene
+    chance: 16 # 1.6% -> 16
+  - use: mythic_scene
+    chance: 1 # <1%
+  - use: rare_field_notes
+    chance: 14 # 1.4% -> 14
+  - use: mythic_field_notes
+    chance: 1 # <1%
+  - use: rare_mythic_battle_pose # Combined rate for Rare/Mythic Battle Pose
+    chance: 1 # <1%
+  - use: rare_elemental_frame
+    chance: 24 # 2.4% -> 24
+  - use: mythic_elemental_frame
+    chance: 1 # <1%
+  - use: mythic_saga
+    chance: 1 # <1%
+
+  # Traditional Foil Card Slot - 1 Card (Variable)
+  foil_slot:
+  - use: common_foil
+    chance: 539 # 53.9% -> 539
+  - use: uncommon_foil
+    chance: 367 # 36.7% -> 367
+  - use: rare_foil
+    chance: 67 # 6.7% -> 67
+  - use: mythic_foil
+    chance: 12 # 1.2% -> 12
+  - use: uncommon_scene_foil
+    chance: 1 # <1%
+  - use: rare_mythic_scene_foil
+    chance: 1 # <1%
+  - use: rare_mythic_field_notes_foil
+    chance: 1 # <1%
+  - use: rare_mythic_battle_pose_foil
+    chance: 1 # <1%
+  - use: rare_mythic_elemental_frame_foil
+    chance: 1 # <1%
+  - use: mythic_saga_foil
+    chance: 1 # <1%
+
+  # DFC Helper / Token Slot - 1 Card (Static)
+  token: 1
+
+sheets:
+  # --- Main Set Sheets (using TLA set code context) ---
+  common:
+    query: "r:c"
+    # Note: Count is 81. Predefined sheets will often cover this.
+
+  uncommon_slot_content:
+    any:
+    - use: uncommon_main_set
+      chance: 964 # 100% - 3.6% = 96.4%
+    - use: uncommon_scene
+      chance: 36 # 3.6%
+
+  # Main set uncommons (excluding scene cards)
+  uncommon_main_set:
+    query: "r:u -is:boosterfun"
+    # Note: Count is 110.
+
+  rare_main_set:
+    query: "r:r -is:boosterfun"
+    # Note: Count is 60.
+
+  mythic_main_set:
+    query: "r:m -is:boosterfun"
+    # Note: Count is 20.
+
+  # --- Land Sheets (using TLA set code context) ---
+  non_foil_dual_land:
+    # Assuming "common dual land" refers to a specific cycle of lands in the set
+    query: "r:c t:land -is:basic -is:fullart -is:source -is:boosterfun"
+
+  non_foil_default_land:
+    # Assuming default frame basic lands
+    query: "t:basic -is:fullart -is:source -is:boosterfun"
+
+  non_foil_avatars_journey_land:
+    # Full-Art Avatar's Journey Lands
+    query: "t:basic is:fullart frame:avatarsjourney"
+
+  non_foil_appa_land:
+    # Full-Art Appa Lands
+    query: "t:basic is:fullart frame:appa"
+
+  foil_dual_land:
+    foil: true
+    use: non_foil_dual_land
+
+  foil_default_land:
+    foil: true
+    use: non_foil_default_land
+
+  foil_avatars_journey_land:
+    foil: true
+    use: non_foil_avatars_journey_land
+
+  foil_appa_land:
+    foil: true
+    use: non_foil_appa_land
+
+  # --- Booster Fun Sheets (non-foil) ---
+
+  non_foil_source_material:
+    query: "is:source"
+    # Note: Count is 61.
+
+  uncommon_scene:
+    query: "r:u is:scene"
+    # Note: Count is 4.
+
+  rare_scene:
+    query: "r:r is:scene"
+    # Note: This is for main scene cards (Book 1, 2, 3), not Scene Box ones.
+
+  mythic_scene:
+    query: "r:m is:scene"
+
+  rare_mythic_scene:
+    any:
+    - use: rare_scene
+      rate: 8 # Arbitrary rate to cover the 1.6% Rare + <1% Mythic
+    - use: mythic_scene
+      rate: 1
+
+  rare_mythic_field_notes:
+    query: "r>=r is:fieldnotes"
+
+  rare_mythic_battle_pose:
+    query: "r>=r is:battlepose -is:neonink"
+    # The 5 additional borderless battle pose cards (non-textless, non-neon ink)
+
+  rare_elemental_frame:
+    query: "r:r is:elementalframe"
+
+  mythic_elemental_frame:
+    query: "r:m is:elementalframe"
+
+  mythic_saga:
+    query: "r:m t:saga is:dfc"
+
+  # --- Traditional Foil Sheets ---
+  common_foil:
+    foil: true
+    use: common
+
+  uncommon_foil:
+    foil: true
+    use: uncommon_main_set
+
+  rare_foil:
+    foil: true
+    use: rare_main_set
+
+  mythic_foil:
+    foil: true
+    use: mythic_main_set
+
+  uncommon_scene_foil:
+    foil: true
+    use: uncommon_scene
+
+  rare_mythic_scene_foil:
+    foil: true
+    use: rare_mythic_scene
+
+  rare_mythic_field_notes_foil:
+    foil: true
+    use: rare_mythic_field_notes
+
+  rare_mythic_battle_pose_foil:
+    foil: true
+    query: "r>=r is:battlepose -is:neonink" # Only the traditional foil battle pose cards
+
+  rare_mythic_elemental_frame_foil:
+    foil: true
+    any:
+    - use: rare_elemental_frame
+      rate: 3 # To balance the rates against the Mythic rate.
+    - use: mythic_elemental_frame
+      rate: 1
+  
+  token:
+    # Predefined sheet for double-sided tokens and DFC helper cards.
+    # We will rely on common.yaml for this unless otherwise specified.
+    query: "t:token or t:helper"

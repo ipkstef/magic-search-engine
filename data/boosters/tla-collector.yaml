@@ -1,0 +1,294 @@
+# Source: Magic: The Gathering | Avatar: The Last Airbender Product Details
+# The Collector Booster contains 15 cards, plus an Art Card (15%) or Traditional Foil Token (85%).
+# Main Set Code: TLA. Eternal-Legal Set Code: TLE.
+
+queries:
+  # Query tag for cards that appear in TLE-only products (Jumpstart, Beginner Box)
+  tle_only_cards: "e:TLE"
+
+pack:
+  # Traditional Foil Commons - 3 Cards (Static)
+  common_foil: 3
+
+  # Traditional Foil Uncommons (Main Set) - 3 Cards (Static)
+  uncommon_main_set_foil: 3
+
+  # Traditional Foil TLE Commons - 2 Cards (Static)
+  tle_common_foil: 2
+
+  # Traditional Foil TLE or Booster Fun Uncommon - 1 Card (Variable)
+  tle_or_uncommon_booster_fun_foil:
+  - use: uncommon_scene_foil
+    chance: 8 # 8% chance for Scene Card
+  - use: tle_uncommon_foil
+    chance: 92 # 92% chance for TLE Uncommon
+
+  # Traditional Foil Full-Art Appa or Avatar's Journey Land - 1 Card (Variable)
+  full_art_land_foil:
+  - use: foil_appa_land
+    chance: 1 # 50%
+  - use: foil_avatars_journey_land
+    chance: 1 # 50%
+
+  # Traditional Foil Rare or Mythic Rare (Main Set) - 1 Card (Variable)
+  rare_mythic_main_set_foil:
+  - use: rare_main_set_foil
+    chance: 857 # 85.7%
+  - use: mythic_main_set_foil
+    chance: 143 # 14.3%
+
+  # Traditional Foil TLE Rare or Mythic Rare - 1 Card (Variable)
+  tle_rare_mythic_foil:
+  - use: tle_rare_foil
+    chance: 370 # 37%
+  - use: tle_mythic_foil
+    chance: 64 # 6.4%
+  - use: tle_extended_art_rare_foil
+    chance: 324 # 32.4%
+  - use: tle_extended_art_mythic_foil
+    chance: 127 # 12.7%
+
+  # Non-foil Booster Fun Rare or Mythic Rare - 1 Card (Variable)
+  non_foil_booster_fun:
+  - use: rare_scene_non_foil
+    chance: 78 # 7.8%
+  - use: mythic_scene_non_foil
+    chance: 11 # 1.1%
+  - use: rare_field_notes_non_foil
+    chance: 69 # 6.9%
+  - use: mythic_field_notes_non_foil
+    chance: 30 # 3.0%
+  - use: rare_battle_pose_non_foil
+    chance: 13 # 1.3%
+  - use: mythic_battle_pose_non_foil
+    chance: 1 # <1%
+  - use: rare_elemental_frame_non_foil
+    chance: 117 # 11.7%
+  - use: mythic_elemental_frame_non_foil
+    chance: 11 # 1.1%
+  - use: mythic_saga_non_foil
+    chance: 22 # 2.2%
+  - use: extended_art_main_set_rare_non_foil
+    chance: 242 # 24.2%
+  - use: extended_art_main_set_mythic_non_foil
+    chance: 1 # <1%
+  - use: extended_art_tle_rare_non_foil
+    chance: 242 # 24.2%
+  - use: extended_art_tle_mythic_non_foil
+    chance: 48 # 4.8%
+  - use: scene_box_rare_non_foil
+    chance: 104 # 10.4%
+
+  # Source Material Card - 1 Card (Variable)
+  source_material_slot:
+  - use: non_foil_source_material
+    chance: 3 # 75%
+  - use: source_material_foil
+    chance: 1 # 25%
+
+  # Foil Booster Fun Rare or Mythic Rare - 1 Card (Variable)
+  foil_booster_fun:
+  - use: raised_foil_aang
+    chance: 1 # <1% (lowest chance)
+  - use: extended_art_main_set_rare_foil
+    chance: 399 # 39.9%
+  - use: extended_art_main_set_mythic_foil
+    chance: 1 # <1%
+  - use: rare_scene_foil
+    chance: 128 # 12.8%
+  - use: mythic_scene_foil
+    chance: 18 # 1.8%
+  - use: rare_field_notes_foil
+    chance: 114 # 11.4%
+  - use: mythic_field_notes_foil
+    chance: 50 # 5.0%
+  - use: battle_pose_foil_non_neon
+    chance: 21 # 2.1% (traditional foil)
+  - use: battle_pose_foil_neon
+    chance: 1 # <1% (neon ink foil)
+  - use: rare_elemental_frame_foil
+    chance: 192 # 19.2%
+  - use: mythic_elemental_frame_foil
+    chance: 18 # 1.8%
+  - use: mythic_saga_foil
+    chance: 36 # 3.6%
+
+  # Art Card / Token Slot - 1 Card (Variable)
+  art_card_slot:
+  - use: art_card
+    chance: 15 # 15%
+  - use: foil_token
+    chance: 85 # 85%
+
+sheets:
+  # --- Main Set Cards (TLA) ---
+  common_foil:
+    foil: true
+    query: "r:c or r:c t:land -is:source -is:boosterfun"
+    # Includes 81 Commons and 10 Common Dual Lands.
+
+  uncommon_main_set_foil:
+    foil: true
+    query: "r:u -is:scene -is:boosterfun"
+    # 110 uncommons, excluding scene cards.
+
+  rare_main_set_foil:
+    foil: true
+    query: "r:r -is:boosterfun"
+
+  mythic_main_set_foil:
+    foil: true
+    query: "r:m -is:boosterfun"
+
+  # --- TLE Cards (Jumpstart/Beginner Box) ---
+  tle_common_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:c"
+    # Includes 22 Jumpstart and 31 Beginner Box Commons.
+
+  tle_uncommon_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:u"
+    # Includes 32 Jumpstart and 14 Beginner Box Uncommons.
+
+  tle_rare_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:r -is:extendedart"
+
+  tle_mythic_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:m -is:extendedart"
+
+  # --- Lands (Re-using Play Booster definitions) ---
+  foil_appa_land:
+    foil: true
+    query: "t:basic is:fullart frame:appa"
+
+  foil_avatars_journey_land:
+    foil: true
+    query: "t:basic is:fullart frame:avatarsjourney"
+
+  # --- Non-Foil Booster Fun Rare/Mythic ---
+  rare_scene_non_foil:
+    query: "r:r is:scene -is:scenebox"
+
+  mythic_scene_non_foil:
+    query: "r:m is:scene -is:scenebox"
+
+  rare_field_notes_non_foil:
+    query: "r:r is:fieldnotes"
+
+  mythic_field_notes_non_foil:
+    query: "r:m is:fieldnotes"
+
+  rare_battle_pose_non_foil:
+    query: "r:r is:battlepose -is:neonink -is:textless"
+
+  mythic_battle_pose_non_foil:
+    query: "r:m is:battlepose -is:neonink -is:textless"
+
+  rare_elemental_frame_non_foil:
+    query: "r:r is:elementalframe"
+
+  mythic_elemental_frame_non_foil:
+    query: "r:m is:elementalframe"
+
+  mythic_saga_non_foil:
+    query: "r:m t:saga is:dfc"
+
+  extended_art_main_set_rare_non_foil:
+    filter: "is:extendedart"
+    use: rare_main_set
+
+  extended_art_main_set_mythic_non_foil:
+    filter: "is:extendedart"
+    use: mythic_main_set
+
+  extended_art_tle_rare_non_foil:
+    filter: "is:extendedart"
+    use: tle_rare # Should reference the non-foil TLE Rare sheet
+
+  extended_art_tle_mythic_non_foil:
+    filter: "is:extendedart"
+    use: tle_mythic # Should reference the non-foil TLE Mythic sheet
+
+  scene_box_rare_non_foil:
+    # "New-to-Magic cards" from Scene Boxes
+    query: "r:r is:scenebox"
+    # Note: Assumes these new-to-magic cards are all rare.
+
+  non_foil_source_material:
+    query: "is:source"
+
+  # --- Foil Booster Fun Rare/Mythic ---
+  raised_foil_aang:
+    foil: true
+    query: "is:raisedfoil"
+    # Only Avatar Aang, Master of Elements
+
+  extended_art_main_set_rare_foil:
+    foil: true
+    filter: "is:extendedart"
+    use: rare_main_set_foil
+
+  extended_art_main_set_mythic_foil:
+    foil: true
+    filter: "is:extendedart"
+    use: mythic_main_set_foil
+
+  tle_extended_art_rare_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:r is:extendedart"
+
+  tle_extended_art_mythic_foil:
+    foil: true
+    rawquery: "{tle_only_cards} r:m is:extendedart"
+
+  rare_scene_foil:
+    foil: true
+    use: rare_scene_non_foil
+
+  mythic_scene_foil:
+    foil: true
+    use: mythic_scene_non_foil
+
+  rare_field_notes_foil:
+    foil: true
+    use: rare_field_notes_non_foil
+
+  mythic_field_notes_foil:
+    foil: true
+    use: mythic_field_notes_non_foil
+
+  battle_pose_foil_non_neon:
+    foil: true
+    use: rare_mythic_battle_pose
+
+  battle_pose_foil_neon:
+    foil: true
+    query: "is:neonink is:battlepose"
+    # The 4 textless neon ink foil borderless battle pose cards.
+
+  rare_elemental_frame_foil:
+    foil: true
+    use: rare_elemental_frame_non_foil
+
+  mythic_elemental_frame_foil:
+    foil: true
+    use: mythic_elemental_frame_non_foil
+
+  mythic_saga_foil:
+    foil: true
+    use: mythic_saga_non_foil
+
+  source_material_foil:
+    foil: true
+    use: non_foil_source_material
+
+  # --- Other Slots ---
+  art_card:
+    query: "t:art_card"
+
+  foil_token:
+    foil: true
+    query: "t:token or t:helper"
